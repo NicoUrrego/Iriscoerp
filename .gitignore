@@ -1,4 +1,5 @@
 node_modules
+<<<<<<< HEAD
 dist/
 android/.gradle/
 android/local.properties
@@ -10,3 +11,5 @@ android/app/build/
 *.aab
 *.jks
 *.keystore
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd

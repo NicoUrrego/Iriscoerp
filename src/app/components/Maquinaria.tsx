@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import { useRecords } from '../hooks/useRecords';
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
 import { useState } from 'react';
 import { Plus, Search, Edit2, Trash2, X, Wrench, CheckCircle, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -14,9 +17,67 @@ interface Maquina {
   costoMantenimiento: number;
 }
 
+<<<<<<< HEAD
 
 export default function Maquinaria() {
   const {records:maquinas,save,remove,busy,error,loading} = useRecords<Maquina>('maquinaria');
+=======
+const initialMaquinas: Maquina[] = [
+  {
+    id: '1',
+    nombre: 'Máquina de coser industrial 1',
+    tipo: 'Costura',
+    estado: 'Activo',
+    ubicacion: 'Área de producción A',
+    ultimoMantenimiento: '2026-03-15',
+    proximoMantenimiento: '2026-06-15',
+    costoMantenimiento: 1200,
+  },
+  {
+    id: '2',
+    nombre: 'Máquina de coser industrial 2',
+    tipo: 'Costura',
+    estado: 'Activo',
+    ubicacion: 'Área de producción A',
+    ultimoMantenimiento: '2026-03-20',
+    proximoMantenimiento: '2026-06-20',
+    costoMantenimiento: 1200,
+  },
+  {
+    id: '3',
+    nombre: 'Cortadora automática',
+    tipo: 'Corte',
+    estado: 'Mantenimiento',
+    ubicacion: 'Área de corte',
+    ultimoMantenimiento: '2026-04-05',
+    proximoMantenimiento: '2026-07-05',
+    costoMantenimiento: 2500,
+  },
+  {
+    id: '4',
+    nombre: 'Plancha industrial',
+    tipo: 'Acabado',
+    estado: 'Activo',
+    ubicacion: 'Área de acabado',
+    ultimoMantenimiento: '2026-02-28',
+    proximoMantenimiento: '2026-05-28',
+    costoMantenimiento: 800,
+  },
+  {
+    id: '5',
+    nombre: 'Overlock',
+    tipo: 'Costura',
+    estado: 'Activo',
+    ubicacion: 'Área de producción B',
+    ultimoMantenimiento: '2026-03-10',
+    proximoMantenimiento: '2026-06-10',
+    costoMantenimiento: 900,
+  },
+];
+
+export default function Maquinaria() {
+  const [maquinas, setMaquinas] = useState<Maquina[]>(initialMaquinas);
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
   const [searchTerm, setSearchTerm] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [editingMaquina, setEditingMaquina] = useState<Maquina | null>(null);
@@ -30,9 +91,37 @@ export default function Maquinaria() {
     costoMantenimiento: '',
   });
 
+<<<<<<< HEAD
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (await save({...formData,costoMantenimiento:Number(formData.costoMantenimiento)}, editingMaquina?.id)) handleCloseModal();
+=======
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (editingMaquina) {
+      setMaquinas(
+        maquinas.map((m) =>
+          m.id === editingMaquina.id
+            ? {
+                ...m,
+                ...formData,
+                costoMantenimiento: parseFloat(formData.costoMantenimiento),
+              }
+            : m
+        )
+      );
+    } else {
+      const newMaquina: Maquina = {
+        id: String(Date.now()),
+        ...formData,
+        costoMantenimiento: parseFloat(formData.costoMantenimiento),
+      };
+      setMaquinas([...maquinas, newMaquina]);
+    }
+
+    handleCloseModal();
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
   };
 
   const handleEdit = (maquina: Maquina) => {
@@ -49,7 +138,13 @@ export default function Maquinaria() {
     setShowModal(true);
   };
 
+<<<<<<< HEAD
   const handleDelete = (id:string) => { void remove(id); };
+=======
+  const handleDelete = (id: string) => {
+    setMaquinas(maquinas.filter((m) => m.id !== id));
+  };
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -76,16 +171,22 @@ export default function Maquinaria() {
 
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto">
+<<<<<<< HEAD
       {loading && <p role="status" className="mb-4">Cargando datos de SQLite…</p>}
       {error && <p role="alert" className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg">{error}</p>}
 
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="mb-1">Maquinaria y herramientas</h1>
           <p className="text-muted-foreground">Control de activos y mantenimiento</p>
         </div>
         <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
           onClick={() => setShowModal(true)}
           className="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:opacity-90 transition-opacity flex items-center gap-2"
         >
@@ -181,14 +282,20 @@ export default function Maquinaria() {
                 </div>
                 <div className="flex gap-1 flex-shrink-0">
                   <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                     onClick={() => handleEdit(maquina)}
                     className="p-2 hover:bg-accent rounded-lg transition-colors"
                   >
                     <Edit2 className="w-4 h-4" />
                   </button>
                   <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                     onClick={() => handleDelete(maquina.id)}
                     className="p-2 hover:bg-destructive/10 text-destructive rounded-lg transition-colors"
                   >
@@ -245,7 +352,10 @@ export default function Maquinaria() {
               <div className="border-b border-border p-6 flex items-center justify-between">
                 <h2>{editingMaquina ? 'Editar máquina' : 'Nueva máquina'}</h2>
                 <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                   onClick={handleCloseModal}
                   className="p-2 hover:bg-accent rounded-lg transition-colors"
                 >
@@ -254,7 +364,10 @@ export default function Maquinaria() {
               </div>
 
               <form onSubmit={handleSubmit} className="p-6 space-y-4">
+<<<<<<< HEAD
                 {error && <p role="alert" className="p-3 bg-red-50 text-red-700 rounded-lg">{error}</p>}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                 <div>
                   <label htmlFor="nombre" className="block mb-2 text-sm">
                     Nombre de la máquina *
@@ -368,7 +481,10 @@ export default function Maquinaria() {
 
                 <div className="flex gap-3 pt-4">
                   <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                     type="button"
                     onClick={handleCloseModal}
                     className="flex-1 px-4 py-3 border border-border rounded-lg hover:bg-accent transition-colors"
@@ -376,7 +492,10 @@ export default function Maquinaria() {
                     Cancelar
                   </button>
                   <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                     type="submit"
                     className="flex-1 bg-primary text-primary-foreground px-4 py-3 rounded-lg hover:opacity-90 transition-opacity"
                   >

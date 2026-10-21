@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useAnalytics } from '../hooks/useAnalytics';
 import { TrendingUp, TrendingDown, Package, ShoppingCart, DollarSign, Users } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
@@ -15,6 +16,63 @@ export default function Dashboard() {
     {name:'Pedidos activos',value:String(data.pedidosActivos),change:change(data.variacionPedidos),trend:(data.variacionPedidos??0)>=0?'up':'down',icon:ShoppingCart,color:'text-purple-600'},
     {name:'Ganancia neta del mes',value:'$'+data.gananciaNeta.toLocaleString('es-CO'),change:'',trend:'neutral',icon:DollarSign,color:'text-orange-600'}
   ];
+=======
+import { TrendingUp, TrendingDown, Package, ShoppingCart, DollarSign, Users } from 'lucide-react';
+import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+
+const salesData = [
+  { mes: 'Ene', ventas: 45000, gastos: 32000 },
+  { mes: 'Feb', ventas: 52000, gastos: 35000 },
+  { mes: 'Mar', ventas: 48000, gastos: 33000 },
+  { mes: 'Abr', ventas: 61000, gastos: 38000 },
+  { mes: 'May', ventas: 55000, gastos: 36000 },
+  { mes: 'Jun', ventas: 67000, gastos: 40000 },
+];
+
+const productosVendidos = [
+  { producto: 'Camisas', cantidad: 145 },
+  { producto: 'Pantalones', cantidad: 98 },
+  { producto: 'Vestidos', cantidad: 67 },
+  { producto: 'Chaquetas', cantidad: 54 },
+];
+
+const stats = [
+  {
+    name: 'Ventas totales',
+    value: '$67,000',
+    change: '+12.5%',
+    trend: 'up' as const,
+    icon: DollarSign,
+    color: 'text-green-600',
+  },
+  {
+    name: 'Productos en stock',
+    value: '1,284',
+    change: '-3.2%',
+    trend: 'down' as const,
+    icon: Package,
+    color: 'text-blue-600',
+  },
+  {
+    name: 'Pedidos activos',
+    value: '47',
+    change: '+8.1%',
+    trend: 'up' as const,
+    icon: ShoppingCart,
+    color: 'text-purple-600',
+  },
+  {
+    name: 'Empleados',
+    value: '24',
+    change: '0%',
+    trend: 'neutral' as const,
+    icon: Users,
+    color: 'text-orange-600',
+  },
+];
+
+export default function Dashboard() {
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto">
       <div className="mb-8">
@@ -124,7 +182,16 @@ export default function Dashboard() {
       <div className="bg-white rounded-xl border border-border p-6 mt-6">
         <h3 className="mb-4">Pedidos recientes</h3>
         <div className="space-y-3">
+<<<<<<< HEAD
           {data.pedidosRecientes.map((pedido) => (
+=======
+          {[
+            { id: '#1234', cliente: 'María González', total: '$12,500', estado: 'Completado' },
+            { id: '#1235', cliente: 'Carlos Ramírez', total: '$8,900', estado: 'En proceso' },
+            { id: '#1236', cliente: 'Ana López', total: '$15,200', estado: 'Pendiente' },
+            { id: '#1237', cliente: 'Jorge Martínez', total: '$6,750', estado: 'Completado' },
+          ].map((pedido) => (
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
             <div
               key={pedido.id}
               className="flex items-center justify-between p-4 rounded-lg hover:bg-accent/50 transition-colors"
@@ -134,7 +201,11 @@ export default function Dashboard() {
                 <p className="text-sm text-muted-foreground">{pedido.id}</p>
               </div>
               <div className="flex items-center gap-6">
+<<<<<<< HEAD
                 <p className="text-right">{'$'+pedido.total.toLocaleString('es-CO')}</p>
+=======
+                <p className="text-right">{pedido.total}</p>
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                 <span
                   className={`px-3 py-1 rounded-full text-sm ${
                     pedido.estado === 'Completado'

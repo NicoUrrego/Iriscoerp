@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import { useRecords } from '../hooks/useRecords';
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
 import { useState } from 'react';
 import { Plus, Search, Edit2, Trash2, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -13,9 +16,62 @@ interface Producto {
   categoria: string;
 }
 
+<<<<<<< HEAD
 
 export default function Productos({readOnly=false}:{readOnly?:boolean}) {
   const {records:productos,save,remove,busy,error,loading} = useRecords<Producto>('productos');
+=======
+const initialProductos: Producto[] = [
+  {
+    id: '1',
+    nombre: 'Camisa de algodón',
+    precio: 500,
+    costoProduccion: 280,
+    descuento: 0,
+    stock: 145,
+    categoria: 'Camisas',
+  },
+  {
+    id: '2',
+    nombre: 'Pantalón de mezclilla',
+    precio: 850,
+    costoProduccion: 520,
+    descuento: 10,
+    stock: 98,
+    categoria: 'Pantalones',
+  },
+  {
+    id: '3',
+    nombre: 'Vestido floral',
+    precio: 1200,
+    costoProduccion: 680,
+    descuento: 15,
+    stock: 67,
+    categoria: 'Vestidos',
+  },
+  {
+    id: '4',
+    nombre: 'Chaqueta de lana',
+    precio: 1800,
+    costoProduccion: 1100,
+    descuento: 0,
+    stock: 34,
+    categoria: 'Chaquetas',
+  },
+  {
+    id: '5',
+    nombre: 'Blusa casual',
+    precio: 450,
+    costoProduccion: 240,
+    descuento: 5,
+    stock: 112,
+    categoria: 'Blusas',
+  },
+];
+
+export default function Productos() {
+  const [productos, setProductos] = useState<Producto[]>(initialProductos);
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
   const [searchTerm, setSearchTerm] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [editingProducto, setEditingProducto] = useState<Producto | null>(null);
@@ -28,9 +84,45 @@ export default function Productos({readOnly=false}:{readOnly?:boolean}) {
     categoria: '',
   });
 
+<<<<<<< HEAD
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (await save({nombre:formData.nombre,categoria:formData.categoria,precio:Number(formData.precio),costoProduccion:Number(formData.costoProduccion),descuento:Number(formData.descuento||0),stock:Number(formData.stock)}, editingProducto?.id)) handleCloseModal();
+=======
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (editingProducto) {
+      setProductos(
+        productos.map((p) =>
+          p.id === editingProducto.id
+            ? {
+                ...editingProducto,
+                nombre: formData.nombre,
+                precio: parseFloat(formData.precio),
+                costoProduccion: parseFloat(formData.costoProduccion),
+                descuento: parseFloat(formData.descuento),
+                stock: parseFloat(formData.stock),
+                categoria: formData.categoria,
+              }
+            : p
+        )
+      );
+    } else {
+      const newProducto: Producto = {
+        id: String(Date.now()),
+        nombre: formData.nombre,
+        precio: parseFloat(formData.precio),
+        costoProduccion: parseFloat(formData.costoProduccion),
+        descuento: parseFloat(formData.descuento),
+        stock: parseFloat(formData.stock),
+        categoria: formData.categoria,
+      };
+      setProductos([...productos, newProducto]);
+    }
+
+    handleCloseModal();
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
   };
 
   const handleEdit = (producto: Producto) => {
@@ -46,7 +138,13 @@ export default function Productos({readOnly=false}:{readOnly?:boolean}) {
     setShowModal(true);
   };
 
+<<<<<<< HEAD
   const handleDelete = (id:string) => { void remove(id); };
+=======
+  const handleDelete = (id: string) => {
+    setProductos(productos.filter((p) => p.id !== id));
+  };
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -73,16 +171,22 @@ export default function Productos({readOnly=false}:{readOnly?:boolean}) {
 
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto">
+<<<<<<< HEAD
       {loading && <p role="status" className="mb-4">Cargando datos de SQLite…</p>}
       {error && <p role="alert" className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg">{error}</p>}
 
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="mb-1">Catálogo de productos</h1>
           <p className="text-muted-foreground">Gestiona tus productos</p>
         </div>
         <button
+<<<<<<< HEAD
           disabled={busy || readOnly} hidden={readOnly}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
           onClick={() => setShowModal(true)}
           className="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:opacity-90 transition-opacity flex items-center gap-2"
         >
@@ -125,14 +229,20 @@ export default function Productos({readOnly=false}:{readOnly?:boolean}) {
                 </div>
                 <div className="flex gap-1">
                   <button
+<<<<<<< HEAD
           disabled={busy || readOnly} hidden={readOnly}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                     onClick={() => handleEdit(producto)}
                     className="p-2 hover:bg-accent rounded-lg transition-colors"
                   >
                     <Edit2 className="w-4 h-4" />
                   </button>
                   <button
+<<<<<<< HEAD
           disabled={busy || readOnly} hidden={readOnly}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                     onClick={() => handleDelete(producto.id)}
                     className="p-2 hover:bg-destructive/10 text-destructive rounded-lg transition-colors"
                   >
@@ -217,7 +327,10 @@ export default function Productos({readOnly=false}:{readOnly?:boolean}) {
               <div className="border-b border-border p-6 flex items-center justify-between">
                 <h2>{editingProducto ? 'Editar producto' : 'Nuevo producto'}</h2>
                 <button
+<<<<<<< HEAD
           disabled={busy || readOnly} hidden={readOnly}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                   onClick={handleCloseModal}
                   className="p-2 hover:bg-accent rounded-lg transition-colors"
                 >
@@ -226,7 +339,10 @@ export default function Productos({readOnly=false}:{readOnly?:boolean}) {
               </div>
 
               <form onSubmit={handleSubmit} className="p-6 space-y-4">
+<<<<<<< HEAD
                 {error && <p role="alert" className="p-3 bg-red-50 text-red-700 rounded-lg">{error}</p>}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                 <div>
                   <label htmlFor="nombre" className="block mb-2 text-sm">
                     Nombre del producto *
@@ -355,7 +471,10 @@ export default function Productos({readOnly=false}:{readOnly?:boolean}) {
 
                 <div className="flex gap-3 pt-4">
                   <button
+<<<<<<< HEAD
           disabled={busy || readOnly} hidden={readOnly}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                     type="button"
                     onClick={handleCloseModal}
                     className="flex-1 px-4 py-3 border border-border rounded-lg hover:bg-accent transition-colors"
@@ -363,7 +482,10 @@ export default function Productos({readOnly=false}:{readOnly?:boolean}) {
                     Cancelar
                   </button>
                   <button
+<<<<<<< HEAD
           disabled={busy || readOnly} hidden={readOnly}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                     type="submit"
                     className="flex-1 bg-primary text-primary-foreground px-4 py-3 rounded-lg hover:opacity-90 transition-opacity"
                   >

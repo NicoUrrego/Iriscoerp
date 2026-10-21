@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 import { useAnalytics } from '../hooks/useAnalytics';
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
 import { useState } from 'react';
 import { TrendingUp, TrendingDown, DollarSign, ArrowUpRight, ArrowDownRight } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
+<<<<<<< HEAD
 export default function Finanzas() {
   const [selectedPeriod, setSelectedPeriod] = useState('mes');
 
@@ -12,6 +16,34 @@ export default function Finanzas() {
   const monthlyData=data.meses;
   const categoriesData=data.gastosPorCategoria.map(c=>({categoria:c.nombre,monto:c.monto}));
   const totalIngresos=data.ingresos,totalGastos=data.gastos,ganancia=data.gananciaNeta,margen=data.margen,cambioIngresos=data.crecimiento;
+=======
+const monthlyData = [
+  { mes: 'Ene', ingresos: 67000, gastos: 45000 },
+  { mes: 'Feb', ingresos: 72000, gastos: 48000 },
+  { mes: 'Mar', ingresos: 68000, gastos: 46000 },
+  { mes: 'Abr', ingresos: 81000, gastos: 52000 },
+  { mes: 'May', ingresos: 75000, gastos: 49000 },
+  { mes: 'Jun', ingresos: 89000, gastos: 55000 },
+];
+
+const categoriesData = [
+  { categoria: 'Materias primas', monto: 28000 },
+  { categoria: 'Salarios', monto: 18000 },
+  { categoria: 'Servicios', monto: 5000 },
+  { categoria: 'Mantenimiento', monto: 4000 },
+];
+
+export default function Finanzas() {
+  const [selectedPeriod, setSelectedPeriod] = useState('mes');
+
+  const totalIngresos = monthlyData[monthlyData.length - 1].ingresos;
+  const totalGastos = monthlyData[monthlyData.length - 1].gastos;
+  const ganancia = totalIngresos - totalGastos;
+  const margen = (ganancia / totalIngresos) * 100;
+
+  const ingresosAnterior = monthlyData[monthlyData.length - 2].ingresos;
+  const cambioIngresos = ((totalIngresos - ingresosAnterior) / ingresosAnterior) * 100;
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
 
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto">
@@ -46,7 +78,11 @@ export default function Finanzas() {
             </div>
             <div className="flex items-center gap-1 text-sm text-green-600">
               <TrendingUp className="w-4 h-4" />
+<<<<<<< HEAD
               <span>{cambioIngresos===null?'Sin base anterior':cambioIngresos.toFixed(1)+'%'}</span>
+=======
+              <span>+{cambioIngresos.toFixed(1)}%</span>
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
             </div>
           </div>
           <p className="text-2xl mb-1">${totalIngresos.toLocaleString()}</p>
@@ -144,7 +180,37 @@ export default function Finanzas() {
       <div className="bg-white border border-border rounded-xl p-6 mt-6">
         <h3 className="mb-4">Movimientos recientes</h3>
         <div className="space-y-3">
+<<<<<<< HEAD
           {data.movimientos.map((mov, index) => (
+=======
+          {[
+            {
+              tipo: 'ingreso',
+              concepto: 'Venta mayorista - María González',
+              monto: 12500,
+              fecha: '2026-04-10',
+            },
+            {
+              tipo: 'gasto',
+              concepto: 'Compra de tela de algodón',
+              monto: 8500,
+              fecha: '2026-04-09',
+            },
+            {
+              tipo: 'ingreso',
+              concepto: 'Venta pedido #1235',
+              monto: 8900,
+              fecha: '2026-04-08',
+            },
+            {
+              tipo: 'gasto',
+              concepto: 'Pago de salarios',
+              monto: 18000,
+              fecha: '2026-04-05',
+            },
+            { tipo: 'gasto', concepto: 'Servicios (luz, agua)', monto: 3200, fecha: '2026-04-03' },
+          ].map((mov, index) => (
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
             <div
               key={index}
               className="flex items-center justify-between p-4 rounded-lg hover:bg-accent/50 transition-colors"
@@ -155,10 +221,17 @@ export default function Finanzas() {
               </div>
               <p
                 className={`text-lg ${
+<<<<<<< HEAD
                   mov.tipo === 'INGRESO' ? 'text-green-600' : 'text-red-600'
                 }`}
               >
                 {mov.tipo === 'INGRESO' ? '+' : '-'}${mov.monto.toLocaleString()}
+=======
+                  mov.tipo === 'ingreso' ? 'text-green-600' : 'text-red-600'
+                }`}
+              >
+                {mov.tipo === 'ingreso' ? '+' : '-'}${mov.monto.toLocaleString()}
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
               </p>
             </div>
           ))}

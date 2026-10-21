@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Iris ERP SQLite
 
 Aplicación React y TypeScript con backend de negocio integrado y base SQLite relacional. Funciona en Android sin servidor externo y permite probar el mismo negocio en navegador con SQLite WebAssembly.
@@ -23,3 +24,16 @@ Consulta [ARQUITECTURA_SQLITE.md](ARQUITECTURA_SQLITE.md) para estructura, tabla
 APK de prueba: `android/app/build/outputs/apk/debug/app-debug.apk`. Está firmado para depuración, no para publicar en Play Store. La compilación incluye los plugins nativos SQLite, Filesystem y Share. Aún debe probarse en un móvil físico.
 
 Esta es una copia independiente de la carpeta original del Escritorio. No migra automáticamente datos de la versión anterior.
+=======
+
+  # Movil gestión microempresa textil
+
+  
+
+  ## Running the code
+
+  Run `npm i` to install the dependencies.
+
+  Run `npm run dev` to start the development server.
+  
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd

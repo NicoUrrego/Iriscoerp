@@ -1,11 +1,15 @@
+<<<<<<< HEAD
 import { useRecords } from '../hooks/useRecords';
 import {errorMessage} from '../api';
 import {toast} from 'sonner';
 import type { Order as Pedido, Product } from '../../backend';
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
 import { useState } from 'react';
 import { Plus, Search, Edit2, Trash2, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
+<<<<<<< HEAD
 
 
 
@@ -14,6 +18,66 @@ export default function Pedidos() {
   const {records:pedidos,save,remove,busy,error,loading}=useRecords<Pedido>('pedidos');
   const {records:products,reload:reloadProducts}=useRecords<Product>('productos');
   const [items,setItems]=useState<{productoId:string;cantidad:number}[]>([{productoId:'',cantidad:1}]);
+=======
+interface Pedido {
+  id: string;
+  cliente: string;
+  telefono: string;
+  email: string;
+  direccion: string;
+  productos: string;
+  cantidad: number;
+  total: number;
+  formaPago: string;
+  estado: 'Pendiente' | 'En proceso' | 'Completado';
+  fecha: string;
+}
+
+const initialPedidos: Pedido[] = [
+  {
+    id: '1234',
+    cliente: 'María González',
+    telefono: '555-0101',
+    email: 'maria@email.com',
+    direccion: 'Calle Principal 123',
+    productos: 'Camisas',
+    cantidad: 25,
+    total: 12500,
+    formaPago: 'Transferencia',
+    estado: 'Completado',
+    fecha: '2026-04-05',
+  },
+  {
+    id: '1235',
+    cliente: 'Carlos Ramírez',
+    telefono: '555-0102',
+    email: 'carlos@email.com',
+    direccion: 'Avenida Norte 456',
+    productos: 'Pantalones',
+    cantidad: 15,
+    total: 8900,
+    formaPago: 'Efectivo',
+    estado: 'En proceso',
+    fecha: '2026-04-08',
+  },
+  {
+    id: '1236',
+    cliente: 'Ana López',
+    telefono: '555-0103',
+    email: 'ana@email.com',
+    direccion: 'Boulevard Sur 789',
+    productos: 'Vestidos',
+    cantidad: 30,
+    total: 15200,
+    formaPago: 'Tarjeta',
+    estado: 'Pendiente',
+    fecha: '2026-04-10',
+  },
+];
+
+export default function Pedidos() {
+  const [pedidos, setPedidos] = useState<Pedido[]>(initialPedidos);
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
   const [searchTerm, setSearchTerm] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [editingPedido, setEditingPedido] = useState<Pedido | null>(null);
@@ -22,41 +86,105 @@ export default function Pedidos() {
     telefono: '',
     email: '',
     direccion: '',
+<<<<<<< HEAD
+=======
+    productos: '',
+    cantidad: '',
+    precioUnitario: '',
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
     formaPago: 'Efectivo',
     estado: 'Pendiente' as Pedido['estado'],
   });
 
+<<<<<<< HEAD
   const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault();
     if(await save({...formData,items},editingPedido?.id)) {handleCloseModal();reloadProducts().catch(e=>toast.error(errorMessage(e)));}
+=======
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const total = parseFloat(formData.cantidad) * parseFloat(formData.precioUnitario);
+
+    if (editingPedido) {
+      setPedidos(
+        pedidos.map((p) =>
+          p.id === editingPedido.id
+            ? {
+                ...editingPedido,
+                ...formData,
+                cantidad: parseFloat(formData.cantidad),
+                total,
+              }
+            : p
+        )
+      );
+    } else {
+      const newPedido: Pedido = {
+        id: String(Math.floor(1000 + Math.random() * 9000)),
+        ...formData,
+        cantidad: parseFloat(formData.cantidad),
+        total,
+        fecha: new Date().toISOString().split('T')[0],
+      };
+      setPedidos([newPedido, ...pedidos]);
+    }
+
+    handleCloseModal();
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
   };
 
   const handleEdit = (pedido: Pedido) => {
     setEditingPedido(pedido);
+<<<<<<< HEAD
     setItems(pedido.items.map(i=>({productoId:i.productoId,cantidad:i.cantidad})));
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
     setFormData({
       cliente: pedido.cliente,
       telefono: pedido.telefono,
       email: pedido.email,
       direccion: pedido.direccion,
+<<<<<<< HEAD
+=======
+      productos: pedido.productos,
+      cantidad: String(pedido.cantidad),
+      precioUnitario: String(pedido.total / pedido.cantidad),
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
       formaPago: pedido.formaPago,
       estado: pedido.estado,
     });
     setShowModal(true);
   };
 
+<<<<<<< HEAD
   const handleDelete = async (id:string) => { if(await remove(id)) reloadProducts().catch(e=>toast.error(errorMessage(e))); };
+=======
+  const handleDelete = (id: string) => {
+    setPedidos(pedidos.filter((p) => p.id !== id));
+  };
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
 
   const handleCloseModal = () => {
     setShowModal(false);
     setEditingPedido(null);
+<<<<<<< HEAD
     setItems([{productoId:'',cantidad:1}]);
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
     setFormData({
       cliente: '',
       telefono: '',
       email: '',
       direccion: '',
+<<<<<<< HEAD
             formaPago: 'Efectivo',
+=======
+      productos: '',
+      cantidad: '',
+      precioUnitario: '',
+      formaPago: 'Efectivo',
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
       estado: 'Pendiente',
     });
   };
@@ -69,15 +197,21 @@ export default function Pedidos() {
 
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto">
+<<<<<<< HEAD
       {loading && <p role="status">Cargando pedidos…</p>}
       {error && <p role="alert" className="p-3 bg-red-50 text-red-700 rounded-lg">{error}</p>}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="mb-1">Pedidos</h1>
           <p className="text-muted-foreground">Gestiona tus pedidos</p>
         </div>
         <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
           onClick={() => setShowModal(true)}
           className="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:opacity-90 transition-opacity flex items-center gap-2"
         >
@@ -140,14 +274,20 @@ export default function Pedidos() {
                 </div>
                 <div className="flex gap-2">
                   <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                     onClick={() => handleEdit(pedido)}
                     className="p-2 hover:bg-accent rounded-lg transition-colors"
                   >
                     <Edit2 className="w-5 h-5" />
                   </button>
                   <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                     onClick={() => handleDelete(pedido.id)}
                     className="p-2 hover:bg-destructive/10 text-destructive rounded-lg transition-colors"
                   >
@@ -186,7 +326,10 @@ export default function Pedidos() {
               <div className="sticky top-0 bg-white border-b border-border p-6 flex items-center justify-between">
                 <h2>{editingPedido ? 'Editar pedido' : 'Nuevo pedido'}</h2>
                 <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                   onClick={handleCloseModal}
                   className="p-2 hover:bg-accent rounded-lg transition-colors"
                 >
@@ -195,7 +338,10 @@ export default function Pedidos() {
               </div>
 
               <form onSubmit={handleSubmit} className="p-6 space-y-4">
+<<<<<<< HEAD
                 {error && <p role="alert" className="p-3 bg-red-50 text-red-700 rounded-lg">{error}</p>}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="cliente" className="block mb-2 text-sm">
@@ -252,6 +398,54 @@ export default function Pedidos() {
                   </div>
 
                   <div>
+<<<<<<< HEAD
+=======
+                    <label htmlFor="productos" className="block mb-2 text-sm">
+                      Producto *
+                    </label>
+                    <input
+                      id="productos"
+                      type="text"
+                      required
+                      value={formData.productos}
+                      onChange={(e) => setFormData({ ...formData, productos: e.target.value })}
+                      className="w-full px-4 py-2 bg-input-background rounded-lg border border-transparent focus:border-ring focus:outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="cantidad" className="block mb-2 text-sm">
+                      Cantidad *
+                    </label>
+                    <input
+                      id="cantidad"
+                      type="number"
+                      required
+                      min="1"
+                      value={formData.cantidad}
+                      onChange={(e) => setFormData({ ...formData, cantidad: e.target.value })}
+                      className="w-full px-4 py-2 bg-input-background rounded-lg border border-transparent focus:border-ring focus:outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="precioUnitario" className="block mb-2 text-sm">
+                      Precio unitario *
+                    </label>
+                    <input
+                      id="precioUnitario"
+                      type="number"
+                      required
+                      min="0"
+                      step="0.01"
+                      value={formData.precioUnitario}
+                      onChange={(e) => setFormData({ ...formData, precioUnitario: e.target.value })}
+                      className="w-full px-4 py-2 bg-input-background rounded-lg border border-transparent focus:border-ring focus:outline-none"
+                    />
+                  </div>
+
+                  <div>
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                     <label htmlFor="formaPago" className="block mb-2 text-sm">
                       Forma de pago
                     </label>
@@ -284,6 +478,7 @@ export default function Pedidos() {
                   </div>
                 </div>
 
+<<<<<<< HEAD
                 <div className="space-y-3">
                   <h3>Productos del pedido</h3>
                   {items.map((item,index)=><div key={index} className="flex flex-wrap gap-2 items-center">
@@ -301,6 +496,19 @@ export default function Pedidos() {
                 <div className="flex gap-3 pt-4">
                   <button
           disabled={busy}
+=======
+                {formData.cantidad && formData.precioUnitario && (
+                  <div className="p-4 bg-accent rounded-lg">
+                    <p className="text-sm text-muted-foreground">Total del pedido</p>
+                    <p className="text-2xl">
+                      ${(parseFloat(formData.cantidad) * parseFloat(formData.precioUnitario)).toLocaleString()}
+                    </p>
+                  </div>
+                )}
+
+                <div className="flex gap-3 pt-4">
+                  <button
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                     type="button"
                     onClick={handleCloseModal}
                     className="flex-1 px-4 py-3 border border-border rounded-lg hover:bg-accent transition-colors"
@@ -308,7 +516,10 @@ export default function Pedidos() {
                     Cancelar
                   </button>
                   <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                     type="submit"
                     className="flex-1 bg-primary text-primary-foreground px-4 py-3 rounded-lg hover:opacity-90 transition-opacity"
                   >

@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 import {today} from '../../backend/domain/validation';
 import { useRecords } from '../hooks/useRecords';
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
 import { useState } from 'react';
 import { Plus, Edit2, Trash2, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -12,14 +15,73 @@ interface CostoFijo {
   categoria: string;
   frecuencia: 'Mensual' | 'Bimestral' | 'Trimestral' | 'Anual';
   fechaPago: string;
+<<<<<<< HEAD
   inicio: string;
 }
 
+=======
+}
+
+const initialCostos: CostoFijo[] = [
+  {
+    id: '1',
+    concepto: 'Alquiler del local',
+    monto: 12000,
+    categoria: 'Inmueble',
+    frecuencia: 'Mensual',
+    fechaPago: '01',
+  },
+  {
+    id: '2',
+    concepto: 'Electricidad',
+    monto: 2800,
+    categoria: 'Servicios',
+    frecuencia: 'Mensual',
+    fechaPago: '15',
+  },
+  {
+    id: '3',
+    concepto: 'Agua',
+    monto: 600,
+    categoria: 'Servicios',
+    frecuencia: 'Mensual',
+    fechaPago: '20',
+  },
+  {
+    id: '4',
+    concepto: 'Internet y teléfono',
+    monto: 850,
+    categoria: 'Servicios',
+    frecuencia: 'Mensual',
+    fechaPago: '10',
+  },
+  {
+    id: '5',
+    concepto: 'Seguro del local',
+    monto: 4500,
+    categoria: 'Seguros',
+    frecuencia: 'Trimestral',
+    fechaPago: '01',
+  },
+  {
+    id: '6',
+    concepto: 'Mantenimiento general',
+    monto: 1500,
+    categoria: 'Mantenimiento',
+    frecuencia: 'Mensual',
+    fechaPago: '25',
+  },
+];
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
 
 const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
 
 export default function CostosFijos() {
+<<<<<<< HEAD
   const {records:costos,save,remove,busy,error,loading} = useRecords<CostoFijo>('costos');
+=======
+  const [costos, setCostos] = useState<CostoFijo[]>(initialCostos);
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
   const [showModal, setShowModal] = useState(false);
   const [editingCosto, setEditingCosto] = useState<CostoFijo | null>(null);
   const [formData, setFormData] = useState({
@@ -27,12 +89,43 @@ export default function CostosFijos() {
     monto: '',
     categoria: '',
     frecuencia: 'Mensual' as CostoFijo['frecuencia'],
+<<<<<<< HEAD
     fechaPago: '', inicio: today(),
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (await save({...formData,monto:Number(formData.monto)}, editingCosto?.id)) handleCloseModal();
+=======
+    fechaPago: '',
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (editingCosto) {
+      setCostos(
+        costos.map((c) =>
+          c.id === editingCosto.id
+            ? {
+                ...c,
+                ...formData,
+                monto: parseFloat(formData.monto),
+              }
+            : c
+        )
+      );
+    } else {
+      const newCosto: CostoFijo = {
+        id: String(Date.now()),
+        ...formData,
+        monto: parseFloat(formData.monto),
+      };
+      setCostos([...costos, newCosto]);
+    }
+
+    handleCloseModal();
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
   };
 
   const handleEdit = (costo: CostoFijo) => {
@@ -42,12 +135,22 @@ export default function CostosFijos() {
       monto: String(costo.monto),
       categoria: costo.categoria,
       frecuencia: costo.frecuencia,
+<<<<<<< HEAD
       fechaPago: costo.fechaPago, inicio: costo.inicio,
+=======
+      fechaPago: costo.fechaPago,
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
     });
     setShowModal(true);
   };
 
+<<<<<<< HEAD
   const handleDelete = (id:string) => { void remove(id); };
+=======
+  const handleDelete = (id: string) => {
+    setCostos(costos.filter((c) => c.id !== id));
+  };
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -57,7 +160,11 @@ export default function CostosFijos() {
       monto: '',
       categoria: '',
       frecuencia: 'Mensual',
+<<<<<<< HEAD
       fechaPago: '', inicio: today(),
+=======
+      fechaPago: '',
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
     });
   };
 
@@ -87,16 +194,22 @@ export default function CostosFijos() {
 
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto">
+<<<<<<< HEAD
       {loading && <p role="status" className="mb-4">Cargando datos de SQLite…</p>}
       {error && <p role="alert" className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg">{error}</p>}
 
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="mb-1">Costos fijos</h1>
           <p className="text-muted-foreground">Gestiona tus gastos recurrentes</p>
         </div>
         <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
           onClick={() => setShowModal(true)}
           className="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:opacity-90 transition-opacity flex items-center gap-2"
         >
@@ -149,14 +262,20 @@ export default function CostosFijos() {
                   </div>
                   <div className="flex gap-1 flex-shrink-0">
                     <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                       onClick={() => handleEdit(costo)}
                       className="p-2 hover:bg-accent rounded-lg transition-colors"
                     >
                       <Edit2 className="w-4 h-4" />
                     </button>
                     <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                       onClick={() => handleDelete(costo.id)}
                       className="p-2 hover:bg-destructive/10 text-destructive rounded-lg transition-colors"
                     >
@@ -234,7 +353,10 @@ export default function CostosFijos() {
               <div className="border-b border-border p-6 flex items-center justify-between">
                 <h2>{editingCosto ? 'Editar costo' : 'Nuevo costo'}</h2>
                 <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                   onClick={handleCloseModal}
                   className="p-2 hover:bg-accent rounded-lg transition-colors"
                 >
@@ -243,7 +365,10 @@ export default function CostosFijos() {
               </div>
 
               <form onSubmit={handleSubmit} className="p-6 space-y-4">
+<<<<<<< HEAD
                 {error && <p role="alert" className="p-3 bg-red-50 text-red-700 rounded-lg">{error}</p>}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                 <div>
                   <label htmlFor="concepto" className="block mb-2 text-sm">
                     Concepto *
@@ -292,7 +417,10 @@ export default function CostosFijos() {
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
+<<<<<<< HEAD
                   <div><label htmlFor="inicio" className="block mb-2 text-sm">Inicio de los vencimientos</label><input id="inicio" type="date" required value={formData.inicio} onChange={e=>setFormData({...formData,inicio:e.target.value})} className="w-full px-4 py-2 bg-input-background rounded-lg border border-border"/></div>
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                   <div>
                     <label htmlFor="frecuencia" className="block mb-2 text-sm">
                       Frecuencia *
@@ -332,7 +460,10 @@ export default function CostosFijos() {
 
                 <div className="flex gap-3 pt-4">
                   <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                     type="button"
                     onClick={handleCloseModal}
                     className="flex-1 px-4 py-3 border border-border rounded-lg hover:bg-accent transition-colors"
@@ -340,7 +471,10 @@ export default function CostosFijos() {
                     Cancelar
                   </button>
                   <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                     type="submit"
                     className="flex-1 bg-primary text-primary-foreground px-4 py-3 rounded-lg hover:opacity-90 transition-opacity"
                   >

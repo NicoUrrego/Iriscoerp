@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 import { api, logout, type Session, type Module } from './api';
 import { Toaster } from 'sonner';
 import { lazy, Suspense, useEffect, useState } from "react";
+=======
+import { useState } from "react";
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
 import { motion, AnimatePresence } from "motion/react";
 import {
   LayoutDashboard,
@@ -16,6 +20,7 @@ import {
   X,
 } from "lucide-react";
 import Login from "./components/Login";
+<<<<<<< HEAD
 
 const Gastos=lazy(()=>import('./components/Gastos'));
 const Usuarios=lazy(()=>import('./components/Usuarios'));
@@ -29,6 +34,17 @@ const Reportes=lazy(()=>import('./components/Reportes'));
 const Empleados=lazy(()=>import('./components/Empleados'));
 const Maquinaria=lazy(()=>import('./components/Maquinaria'));
 const CostosFijos=lazy(()=>import('./components/CostosFijos'));
+=======
+import Dashboard from "./components/Dashboard";
+import Pedidos from "./components/Pedidos";
+import Productos from "./components/Productos";
+import Inventario from "./components/Inventario";
+import Finanzas from "./components/Finanzas";
+import Reportes from "./components/Reportes";
+import Empleados from "./components/Empleados";
+import Maquinaria from "./components/Maquinaria";
+import CostosFijos from "./components/CostosFijos";
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
 
 type View =
   | "dashboard"
@@ -39,7 +55,11 @@ type View =
   | "reportes"
   | "empleados"
   | "maquinaria"
+<<<<<<< HEAD
   | "costos" | "gastos" | "usuarios" | "backup";
+=======
+  | "costos";
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
 
 const navigation = [
   {
@@ -71,6 +91,7 @@ const navigation = [
     icon: Wrench,
   },
   { id: "costos" as View, name: "Costos Fijos", icon: Receipt },
+<<<<<<< HEAD
   {id:"gastos" as View,name:"Gastos",icon:Receipt},
   {id:"usuarios" as View,name:"Usuarios",icon:Users},
   {id:"backup" as View,name:"Respaldo",icon:Receipt},
@@ -80,10 +101,17 @@ const navigation = [
 export default function App() {
   const [session,setSession]=useState<Session|null>(null);
   const [ready,setReady]=useState(false);
+=======
+];
+
+export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
   const [currentView, setCurrentView] =
     useState<View>("dashboard");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+<<<<<<< HEAD
   const selectHome = (modules:Module[]) => (modules[0] === 'materiales' ? 'inventario' : modules[0]) as View;
   useEffect(()=>{
     api<Omit<Session,'token'>>('auth/me').then(s=>{setSession({...s,token:''});setCurrentView(selectHome(s.modules));}).catch(()=>{}).finally(()=>setReady(true));
@@ -105,12 +133,33 @@ export default function App() {
       case "gastos": return <Gastos/>;
       case "usuarios": return <Usuarios/>;
       case "backup": return <Respaldo/>;
+=======
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setCurrentView("dashboard");
+  };
+
+  if (!isAuthenticated) {
+    return <Login onLogin={handleLogin} />;
+  }
+
+  const renderView = () => {
+    switch (currentView) {
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
       case "dashboard":
         return <Dashboard />;
       case "pedidos":
         return <Pedidos />;
       case "productos":
+<<<<<<< HEAD
         return <Productos readOnly={session.user.role === 'VENTAS'} />;
+=======
+        return <Productos />;
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
       case "inventario":
         return <Inventario />;
       case "finanzas":
@@ -130,18 +179,30 @@ export default function App() {
 
   return (
     <div className="h-screen bg-background flex overflow-hidden">
+<<<<<<< HEAD
       <Toaster richColors position="top-right"/>
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
       {/* Desktop Sidebar */}
       <aside className="hidden md:flex md:flex-col w-64 border-r border-border bg-white">
         <div className="p-6 border-b border-border">
           <h1 className="text-xl tracking-tight">Iris.co</h1>
           <p className="text-sm text-muted-foreground mt-1">
+<<<<<<< HEAD
             Gestión textil · SQLite local
           </p>
         </div>
 
         <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
           {availableNavigation.map((item) => {
+=======
+            Gestión textil
+          </p>
+        </div>
+
+        <nav className="flex-1 p-4 space-y-1">
+          {navigation.map((item) => {
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
             const Icon = item.icon;
             const isActive = currentView === item.id;
             return (
@@ -206,7 +267,11 @@ export default function App() {
                 damping: 25,
                 stiffness: 200,
               }}
+<<<<<<< HEAD
               className="w-64 h-full bg-white border-r border-border flex flex-col pt-16"
+=======
+              className="w-64 h-full bg-white border-r border-border"
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
               onClick={(e) => e.stopPropagation()}
             >
               <div className="p-6 border-b border-border">
@@ -214,12 +279,21 @@ export default function App() {
                   Iris.co
                 </h1>
                 <p className="text-sm text-muted-foreground mt-1">
+<<<<<<< HEAD
                   Gestión textil · SQLite local
                 </p>
               </div>
 
               <nav className="flex-1 overflow-y-auto p-4 space-y-1">
                 {availableNavigation.map((item) => {
+=======
+                  Gestión textil
+                </p>
+              </div>
+
+              <nav className="p-4 space-y-1">
+                {navigation.map((item) => {
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                   const Icon = item.icon;
                   const isActive = currentView === item.id;
                   return (
@@ -242,7 +316,11 @@ export default function App() {
                 })}
               </nav>
 
+<<<<<<< HEAD
               <div className="p-4 border-t border-border">
+=======
+              <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-border">
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                 <button
                   onClick={handleLogout}
                   className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-foreground hover:bg-accent transition-colors"
@@ -267,10 +345,18 @@ export default function App() {
             transition={{ duration: 0.2 }}
             className="h-full"
           >
+<<<<<<< HEAD
             <Suspense fallback={<p className="p-8" role="status">Cargando módulo…</p>}>{renderView()}</Suspense>
+=======
+            {renderView()}
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
           </motion.div>
         </AnimatePresence>
       </main>
     </div>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd

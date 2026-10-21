@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import { useRecords } from '../hooks/useRecords';
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
 import { useState } from 'react';
 import { Plus, Search, Edit2, Trash2, X, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -14,9 +17,57 @@ interface Empleado {
   fechaIngreso: string;
 }
 
+<<<<<<< HEAD
 
 export default function Empleados() {
   const {records:empleados,save,remove,busy,error,loading} = useRecords<Empleado>('empleados');
+=======
+const initialEmpleados: Empleado[] = [
+  {
+    id: '1',
+    nombre: 'Juan Pérez',
+    rol: 'Cortador',
+    salario: 8000,
+    horario: 'Lun-Vie 8:00-17:00',
+    telefono: '555-1001',
+    email: 'juan@iris.co',
+    fechaIngreso: '2024-01-15',
+  },
+  {
+    id: '2',
+    nombre: 'María García',
+    rol: 'Costurera',
+    salario: 7500,
+    horario: 'Lun-Vie 8:00-17:00',
+    telefono: '555-1002',
+    email: 'maria@iris.co',
+    fechaIngreso: '2024-03-10',
+  },
+  {
+    id: '3',
+    nombre: 'Carlos López',
+    rol: 'Diseñador',
+    salario: 10000,
+    horario: 'Lun-Vie 9:00-18:00',
+    telefono: '555-1003',
+    email: 'carlos@iris.co',
+    fechaIngreso: '2023-11-20',
+  },
+  {
+    id: '4',
+    nombre: 'Ana Martínez',
+    rol: 'Control de calidad',
+    salario: 7000,
+    horario: 'Lun-Vie 8:00-17:00',
+    telefono: '555-1004',
+    email: 'ana@iris.co',
+    fechaIngreso: '2024-02-05',
+  },
+];
+
+export default function Empleados() {
+  const [empleados, setEmpleados] = useState<Empleado[]>(initialEmpleados);
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
   const [searchTerm, setSearchTerm] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [editingEmpleado, setEditingEmpleado] = useState<Empleado | null>(null);
@@ -29,9 +80,38 @@ export default function Empleados() {
     email: '',
   });
 
+<<<<<<< HEAD
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (await save({...formData,salario:Number(formData.salario),fechaIngreso:editingEmpleado?.fechaIngreso}, editingEmpleado?.id)) handleCloseModal();
+=======
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (editingEmpleado) {
+      setEmpleados(
+        empleados.map((emp) =>
+          emp.id === editingEmpleado.id
+            ? {
+                ...emp,
+                ...formData,
+                salario: parseFloat(formData.salario),
+              }
+            : emp
+        )
+      );
+    } else {
+      const newEmpleado: Empleado = {
+        id: String(Date.now()),
+        ...formData,
+        salario: parseFloat(formData.salario),
+        fechaIngreso: new Date().toISOString().split('T')[0],
+      };
+      setEmpleados([...empleados, newEmpleado]);
+    }
+
+    handleCloseModal();
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
   };
 
   const handleEdit = (empleado: Empleado) => {
@@ -47,7 +127,13 @@ export default function Empleados() {
     setShowModal(true);
   };
 
+<<<<<<< HEAD
   const handleDelete = (id:string) => { void remove(id); };
+=======
+  const handleDelete = (id: string) => {
+    setEmpleados(empleados.filter((emp) => emp.id !== id));
+  };
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -72,16 +158,22 @@ export default function Empleados() {
 
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto">
+<<<<<<< HEAD
       {loading && <p role="status" className="mb-4">Cargando datos de SQLite…</p>}
       {error && <p role="alert" className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg">{error}</p>}
 
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="mb-1">Empleados</h1>
           <p className="text-muted-foreground">Gestiona tu equipo de trabajo</p>
         </div>
         <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
           onClick={() => setShowModal(true)}
           className="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:opacity-90 transition-opacity flex items-center gap-2"
         >
@@ -102,7 +194,11 @@ export default function Empleados() {
         </div>
         <div className="bg-white border border-border rounded-xl p-6">
           <p className="text-sm text-muted-foreground mb-2">Salario promedio</p>
+<<<<<<< HEAD
           <p className="text-3xl">${(empleados.length ? totalNomina / empleados.length : 0).toLocaleString()}</p>
+=======
+          <p className="text-3xl">${(totalNomina / empleados.length).toLocaleString()}</p>
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
         </div>
       </div>
 
@@ -139,14 +235,20 @@ export default function Empleados() {
               </div>
               <div className="flex gap-1 flex-shrink-0">
                 <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                   onClick={() => handleEdit(empleado)}
                   className="p-2 hover:bg-accent rounded-lg transition-colors"
                 >
                   <Edit2 className="w-4 h-4" />
                 </button>
                 <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                   onClick={() => handleDelete(empleado.id)}
                   className="p-2 hover:bg-destructive/10 text-destructive rounded-lg transition-colors"
                 >
@@ -205,7 +307,10 @@ export default function Empleados() {
               <div className="border-b border-border p-6 flex items-center justify-between">
                 <h2>{editingEmpleado ? 'Editar empleado' : 'Nuevo empleado'}</h2>
                 <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                   onClick={handleCloseModal}
                   className="p-2 hover:bg-accent rounded-lg transition-colors"
                 >
@@ -214,7 +319,10 @@ export default function Empleados() {
               </div>
 
               <form onSubmit={handleSubmit} className="p-6 space-y-4">
+<<<<<<< HEAD
                 {error && <p role="alert" className="p-3 bg-red-50 text-red-700 rounded-lg">{error}</p>}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                 <div>
                   <label htmlFor="nombre" className="block mb-2 text-sm">
                     Nombre completo *
@@ -307,7 +415,10 @@ export default function Empleados() {
 
                 <div className="flex gap-3 pt-4">
                   <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                     type="button"
                     onClick={handleCloseModal}
                     className="flex-1 px-4 py-3 border border-border rounded-lg hover:bg-accent transition-colors"
@@ -315,7 +426,10 @@ export default function Empleados() {
                     Cancelar
                   </button>
                   <button
+<<<<<<< HEAD
           disabled={busy}
+=======
+>>>>>>> a64f0fbfb2565319db6dac2dd0581b3cae6c32fd
                     type="submit"
                     className="flex-1 bg-primary text-primary-foreground px-4 py-3 rounded-lg hover:opacity-90 transition-opacity"
                   >
