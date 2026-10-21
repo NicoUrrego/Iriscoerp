@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Iris ERP SQLite</string>
+    <string name="title_activity_main">Iris ERP SQLite</string>
+    <string name="package_name">co.iris.erp.sqlite</string>
+    <string name="custom_url_scheme">co.iris.erp.sqlite</string>
+</resources>
